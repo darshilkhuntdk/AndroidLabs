@@ -3,4 +3,5 @@
     <string name="app_name">Android Labs</string>
     <string name="hello_message">कैसे हो!</string>
     <string name="ButtonText">I\’m a button</string>
+    <string name="toast_message">यहाँ अधिक जानकारी है</string>
 </resources>
