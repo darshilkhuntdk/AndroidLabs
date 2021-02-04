@@ -41,7 +41,7 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/flag" />
+            android:src="@drawable/flag" />
 
     <Switch
         android:layout_gravity="fill"
