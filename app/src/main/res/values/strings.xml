@@ -3,4 +3,7 @@
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\’m a button</string>
     <string name="toast_message">Here is more information</string>
+    <string name="textview_message">Look at my GUI</string>
+    <string name="button_click">Click here</string>
+    <string name="checkbox_message">Check this out!</string>
 </resources>
