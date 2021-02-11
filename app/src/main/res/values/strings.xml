@@ -3,4 +3,11 @@
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\’m a button</string>
     <string name="toast_message">Here is more information</string>
+    <string name="enter_email_message">Enter Your Email Address:</string>
+    <string name="enter_password_message">Enter Your Password:</string>
+    <string name="profile_message">Your Profile:</string>
+    <string name="name_message">Your Name:</string>
+    <string name="email_message">Your Email:</string>
+    <string name="picture_message">Your Picture:</string>
+    <string name="picture_click_message">Click the button above to take a picture</string>
 </resources>

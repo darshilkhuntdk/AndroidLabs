@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Your Email address:"/>
+        android:text="@string/enter_email_message"/>
 
     <EditText
         android:id="@+id/edittext1"
@@ -22,7 +22,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Your Password:"/>
+        android:text="@string/enter_password_message"/>
 
     <EditText
         android:id="@+id/edittext2"
