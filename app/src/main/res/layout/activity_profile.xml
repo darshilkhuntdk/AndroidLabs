@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/yourProfileText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Profile:"/>
+
+    <TextView
+        android:id="@+id/yourNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your name:"/>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your Name" />
+
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Name:"/>
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:id="@+id/pictureText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Picture:"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/picture_frame"/>
+
+    <TextView
+        android:id="@+id/takePictureText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click the button above to take a picture"/>
+
+</LinearLayout>
