@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    Button goToChat;
     ImageButton mImageButton;
     EditText emailField;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -35,6 +37,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         emailField = findViewById(R.id.editTextEmail);
         emailField.setText(emailText);
+
+        Intent chat = new Intent(this,ChatRoomActivity.class);
+        goToChat = findViewById(R.id.goToChat);
+        goToChat.setOnClickListener((click) -> {
+            startActivityForResult(chat,12);
+        });
         }
 
     private void dispatchTakePictureIntent () {
@@ -42,36 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(ACTIVITY_NAME,"In function: "+ "onStart()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(ACTIVITY_NAME,"In function: "+ "onResume()");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(ACTIVITY_NAME,"In function: "+ "onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(ACTIVITY_NAME,"In function: "+ "onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(ACTIVITY_NAME,"In function: "+ "onDestroy()");
     }
 
     @Override
