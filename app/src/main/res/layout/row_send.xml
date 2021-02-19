@@ -10,13 +10,13 @@
         android:id="@+id/imageViewSend"
         android:src="@drawable/row_sent"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewSend"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

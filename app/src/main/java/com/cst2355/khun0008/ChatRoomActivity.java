@@ -21,11 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChatRoomActivity extends AppCompatActivity {
-    private Message message = new Message();
-    private ArrayList<String> elements = new ArrayList<>(Arrays.asList());
+    private Message message ;
+    private ArrayList<Message> elements = new ArrayList<>();
     private MyListAdapter myAdapter;
     private EditText textValue;
-    private boolean sendOrReceive;
+    //private boolean sendOrReceive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         Button receiveButton = findViewById(R.id.messageReceiveButton);
         sendButton.setOnClickListener((clk) ->
         {
-            sendOrReceive = false;
-            elements.add(message.getMessage());
+            message= new Message(textValue.getText().toString(),false);
+            elements.add(message);
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
         });
         receiveButton.setOnClickListener((clk) ->
         {
-            sendOrReceive = true;
-            elements.add(message.getMessage());
+            message= new Message(textValue.getText().toString(),true);
+            elements.add(message);
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
         });
@@ -84,15 +84,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
     }
 
-    private class Message {
-        public void Message(){
-
-        }
-        public String getMessage() {
-            return textValue.getText().toString();
-        }
-
-    }
 
     private class MyListAdapter extends BaseAdapter {
         public int getCount() {
@@ -100,7 +91,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
 
         public Object getItem(int position) {
-            return elements.get(position);
+            return elements.get(position).getMessageDetail();
         }
 
         public long getItemId(int p) {
@@ -108,11 +99,16 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
 
         public View getView(int position, View old, ViewGroup parent) {
+            //String message= elements.get(position).getMessageDetail();
+            Boolean sor = elements.get(position).isSendOrReceive();
+
+            //Message m = new Message(message,sor);
+
             LayoutInflater inflater = getLayoutInflater();
             View v;
             TextView t;
 
-            if (sendOrReceive == false) {
+            if (sor == false) {
                 v = inflater.inflate(R.layout.row_send, parent, false);
                 t = v.findViewById(R.id.textViewSend);
             }

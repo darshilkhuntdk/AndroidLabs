@@ -11,4 +11,7 @@
     <string name="ButtonText">मैं एक बटन हूं</string>
     <string name="picture_message">आपकी तस्वीर:</string>
     <string name="picture_click_message">तस्वीर लेने के लिए ऊपर दिए गए बटन पर क्लिक करें</string>
+    <string name="sendButton">भेजें</string>
+    <string name="receiveButton">प्राप्त करें</string>
+    <string name="messageTypeArea">यहाँ टाइप करें</string>
 </resources>

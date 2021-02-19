@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewReceive"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -21,6 +21,6 @@
         android:id="@+id/imageViewReceive"
         android:src="@drawable/row_receive"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

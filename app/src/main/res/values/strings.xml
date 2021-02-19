@@ -10,4 +10,7 @@
     <string name="email_message">Your Email:</string>
     <string name="picture_message">Your Picture:</string>
     <string name="picture_click_message">Click the button above to take a picture</string>
+    <string name="receiveButton">Receive</string>
+    <string name="messageTypeArea">Type here</string>
+    <string name="sendButton">Send</string>
 </resources>

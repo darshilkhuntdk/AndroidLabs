@@ -29,13 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.loginbutton);
         Intent profile = new Intent(this,ProfileActivity.class);
-        Intent chat = new Intent(this,ChatRoomActivity.class);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveSharedPrefs(email.getText().toString());
                 profile.putExtra("email",email.getText().toString());
-                startActivityForResult(chat,35);
+                startActivityForResult(profile,35);
             }
         });
 
