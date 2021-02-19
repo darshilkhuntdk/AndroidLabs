@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ChatRoomActivity extends AppCompatActivity {
     private Message message = new Message();
@@ -36,17 +39,17 @@ public class ChatRoomActivity extends AppCompatActivity {
         Button receiveButton = findViewById(R.id.messageReceiveButton);
         sendButton.setOnClickListener((clk) ->
         {
+            sendOrReceive = false;
             elements.add(message.getMessage());
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
-            sendOrReceive = false;
         });
         receiveButton.setOnClickListener((clk) ->
         {
+            sendOrReceive = true;
             elements.add(message.getMessage());
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
-            sendOrReceive = true;
         });
 
 
@@ -82,9 +85,13 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     private class Message {
+        public void Message(){
+
+        }
         public String getMessage() {
             return textValue.getText().toString();
         }
+
     }
 
     private class MyListAdapter extends BaseAdapter {
@@ -103,20 +110,18 @@ public class ChatRoomActivity extends AppCompatActivity {
         public View getView(int position, View old, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
             View v;
+            TextView t;
 
-                if (sendOrReceive == false) {
-                    View newRowSend = inflater.inflate(R.layout.row_send, parent, false);
-                    TextView textViewOfSend = newRowSend.findViewById(R.id.textViewSend);
-                    textViewOfSend.setText((String) getItem(position));
-                    v = newRowSend;
-                    return v;
-                } else {
-                    View newRowReceive = inflater.inflate(R.layout.row_receive, parent, false);
-                    TextView textViewOfReceive = newRowReceive.findViewById(R.id.textViewReceive);
-                    textViewOfReceive.setText((String) getItem(position));
-                    v = newRowReceive;
-                    return v;
-                }
+            if (sendOrReceive == false) {
+                v = inflater.inflate(R.layout.row_send, parent, false);
+                t = v.findViewById(R.id.textViewSend);
+            }
+            else {
+                v = inflater.inflate(R.layout.row_receive, parent, false);
+                t = v.findViewById(R.id.textViewReceive);
+            }
+            t.setText(getItem(position).toString());
+            return v;
         }
     }
 }
