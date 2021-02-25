@@ -4,6 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<Message> elements = new ArrayList<>();
     private MyListAdapter myAdapter;
     private EditText textValue;
+    SQLiteDatabase db;
+    long newId;
     //private boolean sendOrReceive;
 
     @Override
@@ -34,19 +39,48 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         textValue = findViewById(R.id.messageTypeArea);
 
+        loadDataFromDatabase();
 
         Button sendButton = findViewById(R.id.messageSendButton);
         Button receiveButton = findViewById(R.id.messageReceiveButton);
         sendButton.setOnClickListener((clk) ->
         {
-            message= new Message(textValue.getText().toString(),false);
+            String messageValue = textValue.getText().toString();
+            int sor = 0;
+            ContentValues newRowValues = new ContentValues();
+
+            //Now provide a value for every database column defined in MyOpener.java:
+            //put string name in the NAME column:
+            newRowValues.put(MyOpener.COL_MESSAGES, messageValue);
+            //put string email in the EMAIL column:
+            newRowValues.put(MyOpener.COL_SENDRECEIVE, sor);
+
+            //Now insert in the database:
+            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+
+            //now you have the newId, you can create the Contact object
+            message = new Message(messageValue,sor, newId);
             elements.add(message);
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
         });
         receiveButton.setOnClickListener((clk) ->
         {
-            message= new Message(textValue.getText().toString(),true);
+            String messageValue = textValue.getText().toString();
+            int sor = 1;
+            ContentValues newRowValues = new ContentValues();
+
+            //Now provide a value for every database column defined in MyOpener.java:
+            //put string name in the NAME column:
+            newRowValues.put(MyOpener.COL_MESSAGES, messageValue);
+            //put string email in the EMAIL column:
+            newRowValues.put(MyOpener.COL_SENDRECEIVE, sor);
+
+            //Now insert in the database:
+            newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+
+            //now you have the newId, you can create the Contact object
+            message = new Message(messageValue,sor, newId);
             elements.add(message);
             myAdapter.notifyDataSetChanged();
             textValue.getText().clear();
@@ -56,7 +90,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         ListView myList = findViewById(R.id.messages_list);
         myList.setAdapter(myAdapter = new MyListAdapter());
 
+
         myList.setOnItemLongClickListener((p, b, pos, id) -> {
+            Message msg = elements.get(pos);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Do you want to delete this?")
 
@@ -65,6 +101,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     //what the Yes button does:
                     .setPositiveButton("Positive", (click, arg) -> {
+                        deleteMessage(msg);
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
                     })
@@ -84,39 +121,78 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
     }
 
+    private void loadDataFromDatabase()
+    {
+        //get a database connection:
+        MyOpener dbOpener = new MyOpener(this);
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+
+
+        // We want to get all of the columns. Look at MyOpener.java for the definitions:
+        String [] columns = {MyOpener.COL_ID, MyOpener.COL_MESSAGES, MyOpener.COL_SENDRECEIVE};
+        //query all the results from the database:
+        Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        //Now the results object has rows of results that match the query.
+        //find the column indices:
+        int messageColumnIndex = results.getColumnIndex(MyOpener.COL_MESSAGES);
+        int sorColIndex = results.getColumnIndex(MyOpener.COL_SENDRECEIVE);
+        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
+
+        //iterate over the results, return true if there is a next item:
+        while(results.moveToNext())
+        {
+            String newM = results.getString(messageColumnIndex);
+            int newSor = results.getInt(sorColIndex);
+            long id = results.getLong(idColIndex);
+
+            //add the new Contact to the array list:
+            elements.add(new Message(newM, newSor, id));
+        }
+
+        //At this point, the contactsList array has loaded every row from the cursor.
+    }
+
+
+
+    protected void deleteMessage(Message m)
+    {
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
+    }
+
 
     private class MyListAdapter extends BaseAdapter {
         public int getCount() {
             return elements.size();
         }
 
-        public Object getItem(int position) {
-            return elements.get(position).getMessageDetail();
+        public Message getItem(int position) {
+            return elements.get(position);
         }
 
         public long getItemId(int p) {
-            return (long) p;
+            return getItem(p).getId();
         }
 
         public View getView(int position, View old, ViewGroup parent) {
             //String message= elements.get(position).getMessageDetail();
-            Boolean sor = elements.get(position).isSendOrReceive();
+            int sor = elements.get(position).getIsSendOrRecieve();
 
             //Message m = new Message(message,sor);
 
             LayoutInflater inflater = getLayoutInflater();
-            View v;
-            TextView t;
+            View v = null;
+            TextView t = null;
 
-            if (sor == false) {
+            if (sor == 0) {
                 v = inflater.inflate(R.layout.row_send, parent, false);
                 t = v.findViewById(R.id.textViewSend);
             }
-            else {
+            else if(sor == 1) {
                 v = inflater.inflate(R.layout.row_receive, parent, false);
                 t = v.findViewById(R.id.textViewReceive);
             }
-            t.setText(getItem(position).toString());
+            t.setText(getItem(position).getMessage());
             return v;
         }
     }

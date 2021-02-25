@@ -1,27 +1,38 @@
 package com.cst2355.khun0008;
 
 public class Message {
-    private String messageDetail;
-    private boolean sendOrReceive;
+    protected String message;
+    protected int isSendOrRecieve;
+    protected long id;
 
-    public Message(String messageDetail, boolean sendOrReceive) {
-        this.messageDetail = messageDetail;
-        this.sendOrReceive = sendOrReceive;
+    /**Constructor:*/
+    public Message(String m, int isr, long i)
+    {
+        message = m;
+        isSendOrRecieve = isr;
+        id = i;
     }
 
-    public String getMessageDetail() {
-        return messageDetail;
+    public void update(String m, int isr)
+    {
+        message = m;
+        isSendOrRecieve = isr;
     }
 
-    public void setMessageDetail(String messageDetail) {
-        this.messageDetail = messageDetail;
+    /**Chaining constructor: */
+    public Message(String m, int isr) { this(m, isr, 0);}
+
+
+    public String getMessage() {
+        return message;
     }
 
-    public boolean isSendOrReceive() {
-        return sendOrReceive;
+    public int getIsSendOrRecieve() {
+        return isSendOrRecieve;
     }
 
-    public void setSendOrReceive(boolean sendOrReceive) {
-        this.sendOrReceive = sendOrReceive;
+    public long getId() {
+        return id;
     }
+
 }
