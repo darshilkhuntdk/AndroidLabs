@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText textValue;
     SQLiteDatabase db;
     long newId;
-    //private boolean sendOrReceive;
-
+    //private boolean sendOrReceiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +132,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         String [] columns = {MyOpener.COL_ID, MyOpener.COL_MESSAGES, MyOpener.COL_SENDRECEIVE};
         //query all the results from the database:
         Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-
+        printCursor(results, 1);
         //Now the results object has rows of results that match the query.
         //find the column indices:
         int messageColumnIndex = results.getColumnIndex(MyOpener.COL_MESSAGES);
@@ -158,6 +158,13 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void deleteMessage(Message m)
     {
         db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(m.getId())});
+    }
+
+    protected void printCursor(Cursor c, int version) {
+        Log.i("Database version: ", String.valueOf(db.getVersion()));
+        Log.i("Number of Columns", String.valueOf(c.getColumnCount()));
+        Log.i("Column names: ", String.valueOf(c.getColumnNames()));
+        Log.i("Number of Rows", String.valueOf(c.getCount()));
     }
 
 
