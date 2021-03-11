@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 public class ProfileActivity extends AppCompatActivity {
 
     Button goToChat;
+    Button goToWF;
     ImageButton mImageButton;
     EditText emailField;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -43,7 +44,15 @@ public class ProfileActivity extends AppCompatActivity {
         goToChat.setOnClickListener((click) -> {
             startActivityForResult(chat,12);
         });
+
+        Intent weather = new Intent(this,WeatherForecast.class);
+        goToWF = findViewById(R.id.goToWeatherForecast);
+        goToWF.setOnClickListener((click) -> {
+            startActivityForResult(weather,13);
+        });
         }
+
+
 
     private void dispatchTakePictureIntent () {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
