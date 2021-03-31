@@ -2,5 +2,16 @@
 <resources>
     <string name="app_name">Android Labs</string>
     <string name="hello_message">कैसे हो!</string>
-    <string name="ButtonText">I\’m a button</string>
+    <string name="toast_message">यहाँ अधिक जानकारी है</string>
+    <string name="enter_email_message">अपना ईमेल पता दर्ज करें:</string>
+    <string name="enter_password_message">अपना पासवर्ड डालें:</string>
+    <string name="profile_message">आपकी प्रोफ़ाइल:</string>
+    <string name="name_message">तुम्हारा नाम:</string>
+    <string name="email_message">आपका ईमेल:</string>
+    <string name="ButtonText">मैं एक बटन हूं</string>
+    <string name="picture_message">आपकी तस्वीर:</string>
+    <string name="picture_click_message">तस्वीर लेने के लिए ऊपर दिए गए बटन पर क्लिक करें</string>
+    <string name="sendButton">भेजें</string>
+    <string name="receiveButton">प्राप्त करें</string>
+    <string name="messageTypeArea">यहाँ टाइप करें</string>
 </resources>
