@@ -38,7 +38,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
-        ListView theList = (ListView) findViewById(R.id.theList);
+        ListView theList = (ListView) findViewById(R.id.messages_list);
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         textValue = findViewById(R.id.messageTypeArea);
@@ -100,8 +100,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             dataToPass.putString("msg", elements.get(position).getMessage() );
             //dataToPass.putInt("msg_pos", position);
             dataToPass.putLong("id",elements.get(position).getId());
-            dataToPass.putInt("send",elements.get(position).getIsSendOrRecieve());
-            if(!isTablet)
+            dataToPass.putInt("checkSend",elements.get(position).getIsSendOrRecieve());
+            if(isTablet)
             {
                 DetailsFragments dFragment = new DetailsFragments(); //add a DetailFragment
                 dFragment.setArguments( dataToPass ); //pass it a bundle for information
