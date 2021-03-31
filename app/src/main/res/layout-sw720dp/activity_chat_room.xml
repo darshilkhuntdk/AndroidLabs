@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:clipToPadding="false"
     android:focusableInTouchMode="true">
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:id="@+id/messages_list"
         android:layout_height="wrap_content" />
 
@@ -15,7 +14,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:gravity="bottom"
         android:layout_gravity="bottom"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="#fff"
         android:orientation="horizontal"
@@ -50,4 +49,10 @@
             android:scaleType="fitCenter"
             android:layout_marginHorizontal="5dp"/>
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/messages_list" />
 </RelativeLayout>
