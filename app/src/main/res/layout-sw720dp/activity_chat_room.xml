@@ -54,5 +54,5 @@
         android:id="@+id/fragmentLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/messages_list" />
+        android:layout_toRightOf="@+id/messages_list"/>
 </RelativeLayout>

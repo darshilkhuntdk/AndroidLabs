@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
+
+        ListView theList = (ListView) findViewById(R.id.theList);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
 
         textValue = findViewById(R.id.messageTypeArea);
 
@@ -89,6 +93,30 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         ListView myList = findViewById(R.id.messages_list);
         myList.setAdapter(myAdapter = new MyListAdapter());
+
+
+        myList.setOnItemClickListener((list, view, position, id) ->{
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString("msg", elements.get(position).getMessage() );
+            //dataToPass.putInt("msg_pos", position);
+            dataToPass.putLong("id",elements.get(position).getId());
+            dataToPass.putInt("send",elements.get(position).getIsSendOrRecieve());
+            if(!isTablet)
+            {
+                DetailsFragments dFragment = new DetailsFragments(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+            }
+            else //isPhone
+            {
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+        });
 
 
         myList.setOnItemLongClickListener((p, b, pos, id) -> {
