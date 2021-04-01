@@ -2,6 +2,8 @@ package com.cst2355.khun0008;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ContentValues;
@@ -31,6 +33,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private MyListAdapter myAdapter;
     private EditText textValue;
     SQLiteDatabase db;
+    DetailsFragments dFragment;
     long newId;
     //private boolean sendOrReceiv
     @Override
@@ -103,7 +106,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             dataToPass.putInt("checkSend",elements.get(position).getIsSendOrRecieve());
             if(isTablet)
             {
-                DetailsFragments dFragment = new DetailsFragments(); //add a DetailFragment
+                dFragment = new DetailsFragments(); //add a DetailFragment
                 dFragment.setArguments( dataToPass ); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -132,6 +135,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                         deleteMessage(msg);
                         elements.remove(pos);
                         myAdapter.notifyDataSetChanged();
+                        if(isTablet){
+                            FragmentManager fm = getSupportFragmentManager();
+                            fm.beginTransaction().remove(dFragment).commit();
+                        }
                     })
                     //What the No button does:
                     .setNegativeButton("Negative", (click, arg) -> {
