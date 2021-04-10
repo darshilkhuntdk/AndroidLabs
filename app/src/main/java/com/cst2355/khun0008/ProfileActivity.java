@@ -17,6 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Button goToChat;
     Button goToWF;
+    Button goToTT;
     ImageButton mImageButton;
     EditText emailField;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -50,9 +51,13 @@ public class ProfileActivity extends AppCompatActivity {
         goToWF.setOnClickListener((click) -> {
             startActivityForResult(weather,13);
         });
-        }
 
-
+        Intent testToolbar = new Intent(this,TestToolbar.class);
+        goToTT = findViewById(R.id.goToToolbar);
+        goToTT.setOnClickListener((click) -> {
+            startActivityForResult(testToolbar,14);
+        });
+    }
 
     private void dispatchTakePictureIntent () {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -70,6 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageButton.setImageBitmap(imageBitmap);
         }
+
+        if(requestCode == 14 && resultCode == 500){
+            finish();
+        }
+
     }
 }
 

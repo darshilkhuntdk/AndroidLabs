@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/choice1"
+        android:title="@string/choice1"
+        android:icon="@drawable/icon1"
+        android:orderInCategory="50"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+
+    <item android:id="@+id/choice2"
+        android:title="@string/choice2"
+        android:icon="@drawable/icon2"
+        android:orderInCategory="75"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+    <item android:id="@+id/choice3"
+        android:title="@string/choice3"
+        android:icon="@drawable/icon3"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+    <item android:id="@+id/overflow_menu"
+        android:title="Text"
+        app:showAsAction="never"
+        android:orderInCategory="150"/> <!-- This uses showAsAction=never, so look at title= parameter -->
+</menu>
